@@ -28,6 +28,15 @@ func NewUser(
 	}
 }
 
+func NewUserUninitialized(fullName string, phoneNumber *string) User {
+	return NewUser(
+		UninitializedID,
+		UninitializedVersion,
+		fullName,
+		phoneNumber,
+	)
+}
+
 func (u *User) Validate() error {
 	fullNameLength := len([]rune(u.FullName))
 	if fullNameLength < 3 || fullNameLength > 100 {
@@ -58,15 +67,6 @@ func (u *User) Validate() error {
 	}
 
 	return nil
-}
-
-func NewUserUninitialized(fullName string, phoneNumber *string) User {
-	return NewUser(
-		UninitializedID,
-		UninitializedVersion,
-		fullName,
-		phoneNumber,
-	)
 }
 
 // набор информации, изходя из которой меняется версия
