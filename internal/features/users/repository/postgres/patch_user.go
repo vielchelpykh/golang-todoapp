@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/jackc/pgx/v5"
 	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 	core_errors "github.com/vielchelpykh/golang-todoapp/internal/core/errors"
+	core_postgres_pool "github.com/vielchelpykh/golang-todoapp/internal/core/repository/postgres/pool"
 )
 
 // если вызывается метод, то пользователь существует, так как до этого его нужно получить
@@ -31,7 +31,7 @@ func (r *UsersRepository) PatchUser(
 		id,
 		version,
 		full_name,
-		phone_number
+		phone_number;
 	`
 
 	row := r.pool.QueryRow(ctx, query, user.FullName, user.PhoneNumber, id, user.Version)
@@ -44,7 +44,7 @@ func (r *UsersRepository) PatchUser(
 		&userModel.PhoneNumber,
 	)
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
+		if errors.Is(err, core_postgres_pool.ErrNoRows) {
 			return domains.User{}, fmt.Errorf(
 				"user with id='%d' concurrently accessed: %w",
 				id,

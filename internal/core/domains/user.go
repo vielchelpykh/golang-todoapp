@@ -83,6 +83,16 @@ func (p *UserPatch) Validate() error {
 	return nil
 }
 
+func NewUserPatch(
+	fullName Nullable[string],
+	phoneNumber Nullable[string],
+) UserPatch {
+	return UserPatch{
+		FullName:    fullName,
+		PhoneNumber: phoneNumber,
+	}
+}
+
 /*
  1. Валидируем patch
  2. Применяем patch ко временной переменной
