@@ -4,26 +4,26 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 )
 
 func (s *UsersService) PatchUser(
 	ctx context.Context,
 	id int,
-	patch domains.UserPatch,
-) (domains.User, error) {
+	patch domain.UserPatch,
+) (domain.User, error) {
 	user, err := s.usersRepository.GetUser(ctx, id)
 	if err != nil {
-		return domains.User{}, fmt.Errorf("get user: %w", err)
+		return domain.User{}, fmt.Errorf("get user: %w", err)
 	}
 
 	if err := user.ApplyPatch(patch); err != nil {
-		return domains.User{}, fmt.Errorf("applay user patch: %w", err)
+		return domain.User{}, fmt.Errorf("applay user patch: %w", err)
 	}
 
 	patchedUser, err := s.usersRepository.PatchUser(ctx, id, user)
 	if err != nil {
-		return domains.User{}, fmt.Errorf("patch user: %w", err)
+		return domain.User{}, fmt.Errorf("patch user: %w", err)
 	}
 
 	return patchedUser, nil

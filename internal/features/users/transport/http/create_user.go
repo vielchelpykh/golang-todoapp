@@ -3,7 +3,7 @@ package users_transport_http
 import (
 	"net/http"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 	core_logger "github.com/vielchelpykh/golang-todoapp/internal/core/logger"
 	core_http_request "github.com/vielchelpykh/golang-todoapp/internal/core/transport/http/request"
 	core_http_response "github.com/vielchelpykh/golang-todoapp/internal/core/transport/http/response"
@@ -40,6 +40,6 @@ func (h *UsersHTTPHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	responseHandler.JSONResponse(response, http.StatusCreated)
 }
 
-func domainFromDTO(dto CreateUserRequest) domains.User {
-	return domains.NewUserUninitialized(dto.FullName, dto.PhoneNumber)
+func domainFromDTO(dto CreateUserRequest) domain.User {
+	return domain.NewUserUninitialized(dto.FullName, dto.PhoneNumber)
 }

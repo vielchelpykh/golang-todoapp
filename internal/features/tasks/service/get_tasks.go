@@ -1,4 +1,4 @@
-package users_service
+package tasks_service
 
 import (
 	"context"
@@ -8,11 +8,12 @@ import (
 	core_errors "github.com/vielchelpykh/golang-todoapp/internal/core/errors"
 )
 
-func (s *UsersService) GetUsers(
+func (s *TasksService) GetTasks(
 	ctx context.Context,
+	userID *int,
 	limit *int,
 	offset *int,
-) ([]domain.User, error) {
+) ([]domain.Task, error) {
 	if limit != nil && *limit < 0 {
 		return nil, fmt.Errorf("limit must be non-negative: %w", core_errors.ErrInvalidArgument)
 	}
@@ -21,10 +22,10 @@ func (s *UsersService) GetUsers(
 		return nil, fmt.Errorf("offset must be non-negative: %w", core_errors.ErrInvalidArgument)
 	}
 
-	users, err := s.usersRepository.GetUsers(ctx, limit, offset)
+	tasks, err := s.tasksRepository.GetTasks(ctx, userID, limit, offset)
 	if err != nil {
-		return nil, fmt.Errorf("get users from repository: %w", err)
+		return nil, fmt.Errorf("get tasks from repository: %w", err)
 	}
 
-	return users, nil
+	return tasks, nil
 }

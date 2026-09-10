@@ -3,7 +3,7 @@ package users_service
 import (
 	"context"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 )
 
 type UsersService struct {
@@ -19,19 +19,19 @@ func NewUsersService(usersRepository UsersRepository) *UsersService {
 type UsersRepository interface {
 	CreateUser(
 		ctx context.Context,
-		user domains.User,
-	) (domains.User, error)
+		user domain.User,
+	) (domain.User, error)
 
 	GetUsers(
 		ctx context.Context,
 		limit *int,
 		offset *int,
-	) ([]domains.User, error)
+	) ([]domain.User, error)
 
 	GetUser(
 		ctx context.Context,
 		id int,
-	) (domains.User, error)
+	) (domain.User, error)
 
 	DeleteUser(
 		ctx context.Context,
@@ -41,6 +41,6 @@ type UsersRepository interface {
 	PatchUser(
 		ctx context.Context,
 		id int,
-		user domains.User,
-	) (domains.User, error)
+		user domain.User,
+	) (domain.User, error)
 }

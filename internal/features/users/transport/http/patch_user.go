@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 	core_logger "github.com/vielchelpykh/golang-todoapp/internal/core/logger"
 	core_http_request "github.com/vielchelpykh/golang-todoapp/internal/core/transport/http/request"
 	core_http_response "github.com/vielchelpykh/golang-todoapp/internal/core/transport/http/response"
@@ -81,8 +81,8 @@ func (h *UsersHTTPHandler) PatchUser(w http.ResponseWriter, r *http.Request) {
 	responseHandler.JSONResponse(response, http.StatusOK)
 }
 
-func userPatchFromRequest(request PatchUserRequest) domains.UserPatch {
-	return domains.NewUserPatch(
+func userPatchFromRequest(request PatchUserRequest) domain.UserPatch {
+	return domain.NewUserPatch(
 		request.FullName.ToDomain(),
 		request.PhoneNumber.ToDomain(),
 	)

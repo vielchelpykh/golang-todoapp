@@ -1,6 +1,6 @@
 package users_transport_http
 
-import "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+import domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 
 type UserDTOResponse struct {
 	ID          int     `json:"id"`
@@ -9,7 +9,7 @@ type UserDTOResponse struct {
 	PhoneNumber *string `json:"phone_number"`
 }
 
-func userDTOFromDomain(user domains.User) UserDTOResponse {
+func userDTOFromDomain(user domain.User) UserDTOResponse {
 	return UserDTOResponse{
 		ID:          user.ID,
 		Version:     user.Version,
@@ -18,7 +18,7 @@ func userDTOFromDomain(user domains.User) UserDTOResponse {
 	}
 }
 
-func usersDTOFromDomains(users []domains.User) []UserDTOResponse {
+func usersDTOFromDomains(users []domain.User) []UserDTOResponse {
 	usersDTO := make([]UserDTOResponse, len(users))
 
 	for i, user := range users {

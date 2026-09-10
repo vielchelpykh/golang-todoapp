@@ -3,11 +3,11 @@ package core_http_types
 import (
 	"encoding/json"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 )
 
 type Nullable[T any] struct {
-	domains.Nullable[T]
+	domain.Nullable[T]
 }
 
 // если вызван, то поле было передано, то есть Set = true
@@ -29,8 +29,8 @@ func (n *Nullable[T]) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (n *Nullable[T]) ToDomain() domains.Nullable[T] {
-	return domains.Nullable[T]{
+func (n *Nullable[T]) ToDomain() domain.Nullable[T] {
+	return domain.Nullable[T]{
 		Value: n.Value,
 		Set:   n.Set,
 	}
