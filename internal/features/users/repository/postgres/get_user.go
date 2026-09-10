@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 	core_errors "github.com/vielchelpykh/golang-todoapp/internal/core/errors"
 	core_postgres_pool "github.com/vielchelpykh/golang-todoapp/internal/core/repository/postgres/pool"
 )
@@ -13,7 +13,7 @@ import (
 func (r *UsersRepository) GetUser(
 	ctx context.Context,
 	id int,
-) (domains.User, error) {
+) (domain.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, r.pool.OpTimeout())
 	defer cancel()
 
@@ -36,17 +36,17 @@ func (r *UsersRepository) GetUser(
 
 	if err != nil {
 		if errors.Is(err, core_postgres_pool.ErrNoRows) {
-			return domains.User{}, fmt.Errorf(
+			return domain.User{}, fmt.Errorf(
 				"user with id='%d' : %w",
 				id,
 				core_errors.ErrNotFound,
 			)
 		} else {
-			return domains.User{}, fmt.Errorf("scan error: %w", err)
+			return domain.User{}, fmt.Errorf("scan error: %w", err)
 		}
 	}
 
-	userDomain := domains.NewUser(
+	userDomain := domain.NewUser(
 		userModel.ID,
 		userModel.Version,
 		userModel.FullName,

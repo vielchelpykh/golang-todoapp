@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 )
 
 func (r *UsersRepository) GetUsers(
 	ctx context.Context,
 	limit *int,
 	offset *int,
-) ([]domains.User, error) {
+) ([]domain.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, r.pool.OpTimeout())
 	defer cancel()
 

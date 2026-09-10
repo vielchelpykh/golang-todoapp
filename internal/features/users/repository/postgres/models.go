@@ -1,6 +1,6 @@
 package users_postgres_repository
 
-import "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+import domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 
 type UserModel struct {
 	ID          int
@@ -9,11 +9,11 @@ type UserModel struct {
 	PhoneNumber *string
 }
 
-func userDomainsFromModels(users []UserModel) []domains.User {
-	userDomains := make([]domains.User, len(users))
+func userDomainsFromModels(users []UserModel) []domain.User {
+	userDomains := make([]domain.User, len(users))
 
 	for i, user := range users {
-		userDomains[i] = domains.NewUser(
+		userDomains[i] = domain.NewUser(
 			user.ID,
 			user.Version,
 			user.FullName,

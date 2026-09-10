@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 )
 
 func (r *UsersRepository) CreateUser(
 	ctx context.Context,
-	user domains.User,
-) (domains.User, error) {
+	user domain.User,
+) (domain.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, r.pool.OpTimeout())
 	defer cancel()
 
@@ -28,10 +28,10 @@ func (r *UsersRepository) CreateUser(
 		&userModel.PhoneNumber,
 	)
 	if err != nil {
-		return domains.User{}, fmt.Errorf("scan error: %w", err)
+		return domain.User{}, fmt.Errorf("scan error: %w", err)
 	}
 
-	userDomain := domains.NewUser(
+	userDomain := domain.NewUser(
 		userModel.ID,
 		userModel.Version,
 		userModel.FullName,

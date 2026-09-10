@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 	core_http_server "github.com/vielchelpykh/golang-todoapp/internal/core/transport/http/server"
 )
 
@@ -15,19 +15,19 @@ type UsersHTTPHandler struct {
 type UsersService interface {
 	CreateUser(
 		ctx context.Context,
-		user domains.User,
-	) (domains.User, error)
+		user domain.User,
+	) (domain.User, error)
 
 	GetUsers(
 		ctx context.Context,
 		limit *int,
 		offset *int,
-	) ([]domains.User, error)
+	) ([]domain.User, error)
 
 	GetUser(
 		ctx context.Context,
 		id int,
-	) (domains.User, error)
+	) (domain.User, error)
 
 	DeleteUser(
 		ctx context.Context,
@@ -37,8 +37,8 @@ type UsersService interface {
 	PatchUser(
 		ctx context.Context,
 		id int,
-		patch domains.UserPatch,
-	) (domains.User, error)
+		patch domain.UserPatch,
+	) (domain.User, error)
 }
 
 func NewUsersHTTPHandler(usersService UsersService) *UsersHTTPHandler {

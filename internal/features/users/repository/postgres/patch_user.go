@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/vielchelpykh/golang-todoapp/internal/core/domains"
+	domain "github.com/vielchelpykh/golang-todoapp/internal/core/domains"
 	core_errors "github.com/vielchelpykh/golang-todoapp/internal/core/errors"
 	core_postgres_pool "github.com/vielchelpykh/golang-todoapp/internal/core/repository/postgres/pool"
 )
@@ -15,8 +15,8 @@ import (
 func (r *UsersRepository) PatchUser(
 	ctx context.Context,
 	id int,
-	user domains.User,
-) (domains.User, error) {
+	user domain.User,
+) (domain.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, r.pool.OpTimeout())
 	defer cancel()
 
@@ -45,17 +45,17 @@ func (r *UsersRepository) PatchUser(
 	)
 	if err != nil {
 		if errors.Is(err, core_postgres_pool.ErrNoRows) {
-			return domains.User{}, fmt.Errorf(
+			return domain.User{}, fmt.Errorf(
 				"user with id='%d' concurrently accessed: %w",
 				id,
 				core_errors.ErrConflict,
 			)
 		} else {
-			return domains.User{}, fmt.Errorf("scan error: %w", err)
+			return domain.User{}, fmt.Errorf("scan error: %w", err)
 		}
 	}
 
-	userDomain := domains.NewUser(
+	userDomain := domain.NewUser(
 		userModel.ID,
 		userModel.Version,
 		userModel.FullName,
